@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Thiago
@@ -20,17 +19,21 @@ public class Inicial extends javax.swing.JFrame {
     private static final String COMMIT_ACTION = "commit";
     
     public Database db;
+    
     /**
      * Creates new form Inicial
-     */
-    public Inicial() {
+     */    
+    public Inicial(){
+        
         db = new Database();
         db.connect();
         initComponents();
+        
         this.setAutoComplete();
         this.jIFNotaEntrega.setVisible(false);
-        
     }
+        
+    
     /**
      * 
      *     
@@ -58,11 +61,11 @@ public class Inicial extends javax.swing.JFrame {
     }
     
     public void preencheForm(int tipo){
-        if(tipo == 0){ //tipo nome
+        if(tipo == 0){ //busca nome
             jTextField5.setText(db.getEmailByIdPessoa(db.getIdByNomePessoa(jTFNome.getText())));
             jTextField6.setText(db.getTelefoneByIdPessoa(db.getIdByNomePessoa(jTFNome.getText())));
             jTFCpf.setText(db.getCpfByIdPessoa(db.getIdByNomePessoa(jTFNome.getText())));
-        }else{ //tipo cpf
+        }else{ //busca cpf
             jTextField5.setText(db.getEmailByIdPessoa(db.getIdByCpfPessoa(jTFCpf.getText())));
             jTextField6.setText(db.getTelefoneByIdPessoa(db.getIdByCpfPessoa(jTFCpf.getText())));
             jTFNome.setText(db.getNomeByIdPessoa(db.getIdByCpfPessoa(jTFCpf.getText())));
@@ -73,6 +76,7 @@ public class Inicial extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jIFNotaEntrega = new javax.swing.JInternalFrame();
@@ -98,6 +102,7 @@ public class Inicial extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jTFCpf = new javax.swing.JTextField();
         jLApresentandte3 = new javax.swing.JLabel();
+        jPMenu = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMNotaEntrega = new javax.swing.JMenu();
         jMIIncluir = new javax.swing.JMenuItem();
@@ -213,6 +218,11 @@ public class Inicial extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jTable2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTable2KeyPressed(evt);
@@ -270,27 +280,38 @@ public class Inicial extends javax.swing.JFrame {
         jIFNotaEntrega.getContentPane().add(jLApresentandte3);
         jLApresentandte3.setBounds(10, 10, 131, 30);
 
+        jPMenu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        java.awt.GridBagLayout jPMenuLayout = new java.awt.GridBagLayout();
+        jPMenuLayout.columnWidths = new int[] {0};
+        jPMenuLayout.rowHeights = new int[] {0, 0, 0, 0, 0};
+        jPMenu.setLayout(jPMenuLayout);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jIFNotaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jPMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jIFNotaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jIFNotaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jIFNotaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 113, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 750));
 
         jMNotaEntrega.setText("Nota de Entrega");
 
+        jMIIncluir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         jMIIncluir.setText("Incluir");
         jMIIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,6 +320,7 @@ public class Inicial extends javax.swing.JFrame {
         });
         jMNotaEntrega.add(jMIIncluir);
 
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         jMenuItem1.setText("Pesquisar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -329,15 +351,21 @@ public class Inicial extends javax.swing.JFrame {
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
         if(evt.getKeyCode() == evt.VK_ENTER){
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            model.addRow(new Object[]{""});
+            Object result = model.getValueAt(model.getRowCount()-1, model.getColumnCount()-1);
+            if((result != null) && (result != "")){
+                model.addRow(new Object[]{""});
+            }
         }
     }//GEN-LAST:event_jTable1KeyPressed
 
     private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyPressed
         if(evt.getKeyCode() == evt.VK_ENTER){
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-            model.addRow(new Object[]{""});
-        }
+            Object result = model.getValueAt(model.getRowCount()-1, model.getColumnCount()-1);
+            if((result != null) && (result != "")){
+                model.addRow(new Object[]{""});
+            }
+        }        
     }//GEN-LAST:event_jTable2KeyPressed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -374,6 +402,10 @@ public class Inicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTFCpfKeyPressed
 
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+
+    }//GEN-LAST:event_jTable2MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -393,6 +425,7 @@ public class Inicial extends javax.swing.JFrame {
     private javax.swing.JMenu jMNotaEntrega;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPMenu;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
